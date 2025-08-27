@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tomatempo - Temporizador de Produtividade</title>
+  <link rel="icon" type="image/png" href="img/tomate.webp">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="flex items-center justify-center p-4 bg-gradient-to-br from-red-500 to-pink-400">
+
+  <div class="w-full max-w-lg mx-auto">
+
+    <div class="text-center mb-8">
+      <h1 class="text-3xl md:text-4xl text-white pixel-text mb-4">Tomatempo</h1>
+    </div>
+
+    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 pixel-border mb-6">
+      <div class="text-center relative">
+
+        <div class="w-64 h-64 mx-auto mb-4 relative tomato-shape flex items-center justify-center">
+          
+          <svg class="absolute top-0 left-0 w-full h-full z-0" viewBox="0 0 100 100">
+            <circle class="progress-bg" cx="50" cy="50" r="45" fill="none" stroke-width="3"/>
+            <circle class="progress-value" cx="50" cy="50" r="45" fill="none" stroke-width="3" 
+              stroke-dasharray="283" stroke-dashoffset="0" id="progress-ring"/>
+          </svg>
+
+          <div class="text-5xl md:text-6xl text-white font-bold pixel-text z-10" id="timer">25:00</div>
+        </div>
+
+        <!-- Controles -->
+        <div class="flex justify-center space-x-4 mb-6">
+          <button id="startBtn" class="pixel-button bg-green-500 text-white px-8 py-4 rounded-lg pixel-border text-sm">
+            <i class="fas fa-play"></i>
+          </button>
+          <button id="pauseBtn" class="pixel-button bg-yellow-500 text-white px-8 py-4 rounded-lg pixel-border text-sm" disabled>
+            <i class="fas fa-pause"></i>
+          </button>
+          <button id="resetBtn" class="pixel-button bg-red-500 text-white px-8 py-4 rounded-lg pixel-border text-sm">
+            <i class="fas fa-redo"></i>
+          </button>
+          <button id="soundToggle" class="pixel-button bg-blue-500 text-white px-8 py-4 rounded-lg pixel-border text-sm">
+            <i class="fas fa-volume-up"></i>
+          </button>
+        </div>
+
+        <div class="flex justify-center space-x-4 mb-4">
+          <button id="workMode" class="bg-red-500 text-white px-4 py-2 rounded pixel-border text-xs font-bold">TRABALHO</button>
+          <button id="breakMode" class="bg-green-500 text-white px-4 py-2 rounded pixel-border text-xs">PAUSA</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 pixel-border mb-6">
+      <h3 class="text-white text-center pixel-text text-sm mb-3">POMODOROS COMPLETOS</h3>
+      <div class="flex justify-center space-x-2" id="tomato-counter"></div>
+    </div>
+
+    <div class="mt-6 text-center">
+      <p class="text-white/80 text-xs pixel-text">⚡ 25min trabalho → 5min pausa ⚡</p>
+    </div>
+
+  </div>
+
+  <audio id="sound-start" src="sounds/start.mp3" preload="auto"></audio>
+  <audio id="sound-end" src="sounds/end.mp3" preload="auto"></audio>
+  <audio id="sound-click" src="sounds/click.mp3" preload="auto"></audio>
+  <audio id="sound-tomato" src="sounds/tomato.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
