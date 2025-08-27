@@ -207,7 +207,7 @@ class PomodoroTimer {
 
       setTimeout(() => {
         if (document.body.contains(note)) note.remove();
-      }, 5000);
+      }, 8000);
     }
   }
 }
@@ -216,8 +216,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if ("Notification" in window && Notification.permission !== "granted") {
     Notification.requestPermission();
   }
-  new PomodoroTimer();
-
+  const timer = new PomodoroTimer();
   typeWriter("Tomatempo", "title", 120);
+
+  timer.showNotification(
+    "Bem-vindo(a) ao Tomatempo! 🍅\nA Técnica Pomodoro consiste em 25 minutos de trabalho focado seguidos por 5 minutos de pausa. Complete ciclos e aumente sua produtividade!"
+  );
 });
 
