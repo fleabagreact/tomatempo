@@ -1,3 +1,18 @@
+function typeWriter(text, elementId, speed = 100) {
+  const el = document.getElementById(elementId);
+  let i = 0;
+  function typing() {
+    if (i < text.length) {
+      el.textContent += text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
+    } else {
+      el.style.borderRight = "none";
+    }
+  }
+  typing();
+}
+
 class PomodoroTimer {
   constructor() {
     this.workTime = 25 * 60;
@@ -55,18 +70,21 @@ class PomodoroTimer {
   }
 
   start() {
-    if (!this.isRunning) {
-      this.isRunning = true;
-      this.startBtn.disabled = true;
-      this.pauseBtn.disabled = false;
+  if (!this.isRunning) {
+    this.isRunning = true;
+    this.startBtn.disabled = true;
+    this.pauseBtn.disabled = false;
 
-      this.interval = setInterval(() => {
-        this.currentTime--;
-        this.updateDisplay();
-        if (this.currentTime <= 0) this.completeSession();
-      }, 1000);
-    }
+    const tomato = document.querySelector(".tomato-shape");
+    tomato.classList.add("bounce");
+
+    this.interval = setInterval(() => {
+      this.currentTime--;
+      this.updateDisplay();
+      if (this.currentTime <= 0) this.completeSession();
+    }, 1000);
   }
+}
 
   pause() {
     this.isRunning = false;
@@ -158,39 +176,40 @@ class PomodoroTimer {
   }
 
   showNotification(msg) {
-  if ("Notification" in window && Notification.permission === "granted") {
-    new Notification("🍅 Tomatempo", { body: msg });
-  } else {
-    const note = document.createElement("div");
-    note.className = "pixel-note";
+    if ("Notification" in window && Notification.permission === "granted") {
+      new Notification("🍅 Tomatempo", { body: msg });
+    } else {
+      const note = document.createElement("div");
+      note.className = "pixel-note";
 
-    const header = document.createElement("div");
-    header.className = "pixel-note-header";
+      const header = document.createElement("div");
+      header.className = "pixel-note-header";
 
-    const title = document.createElement("span");
-    title.className = "title";
-    title.textContent = "🍅 Tomatempo";
+      const title = document.createElement("span");
+      title.className = "title";
+      title.textContent = "🍅 Tomatempo";
 
-    const closeBtn = document.createElement("div");
-    closeBtn.className = "close-btn";
-    closeBtn.textContent = "X";
-    closeBtn.onclick = () => note.remove();
+      const closeBtn = document.createElement("div");
+      closeBtn.className = "close-btn";
+      closeBtn.textContent = "X";
+      closeBtn.onclick = () => note.remove();
 
-    header.appendChild(title);
-    header.appendChild(closeBtn);
+      header.appendChild(title);
+      header.appendChild(closeBtn);
 
-    const body = document.createElement("div");
-    body.textContent = msg;
+      const body = document.createElement("div");
+      body.textContent = msg;
 
-    note.appendChild(header);
-    note.appendChild(body);
+      note.appendChild(header);
+      note.appendChild(body);
 
-    document.body.appendChild(note);
+      document.body.appendChild(note);
 
-    setTimeout(() => note.remove(), 4000);
+      setTimeout(() => {
+        if (document.body.contains(note)) note.remove();
+      }, 5000);
+    }
   }
-}
-
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -198,4 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
     Notification.requestPermission();
   }
   new PomodoroTimer();
+
+  typeWriter("Tomatempo", "title", 120);
 });
+
