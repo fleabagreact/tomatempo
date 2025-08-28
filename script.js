@@ -176,46 +176,40 @@ class PomodoroTimer {
   }
 
   showNotification(msg) {
-    if ("Notification" in window && Notification.permission === "granted") {
-      new Notification("🍅 Tomatempo", { body: msg });
-    } else {
-      const note = document.createElement("div");
-      note.className = "pixel-note";
+    // Sempre usar notificações personalizadas com CSS
+    const note = document.createElement("div");
+    note.className = "pixel-note";
 
-      const header = document.createElement("div");
-      header.className = "pixel-note-header";
+    const header = document.createElement("div");
+    header.className = "pixel-note-header";
 
-      const title = document.createElement("span");
-      title.className = "title";
-      title.textContent = "🍅 Tomatempo";
+    const title = document.createElement("span");
+    title.className = "title";
+    title.textContent = "🍅 Tomatempo";
 
-      const closeBtn = document.createElement("div");
-      closeBtn.className = "close-btn";
-      closeBtn.textContent = "X";
-      closeBtn.onclick = () => note.remove();
+    const closeBtn = document.createElement("div");
+    closeBtn.className = "close-btn";
+    closeBtn.textContent = "X";
+    closeBtn.onclick = () => note.remove();
 
-      header.appendChild(title);
-      header.appendChild(closeBtn);
+    header.appendChild(title);
+    header.appendChild(closeBtn);
 
-      const body = document.createElement("div");
-      body.textContent = msg;
+    const body = document.createElement("div");
+    body.textContent = msg;
 
-      note.appendChild(header);
-      note.appendChild(body);
+    note.appendChild(header);
+    note.appendChild(body);
 
-      document.body.appendChild(note);
+    document.body.appendChild(note);
 
-      setTimeout(() => {
-        if (document.body.contains(note)) note.remove();
-      }, 8000);
-    }
+    setTimeout(() => {
+      if (document.body.contains(note)) note.remove();
+    }, 8000);
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  if ("Notification" in window && Notification.permission !== "granted") {
-    Notification.requestPermission();
-  }
   const timer = new PomodoroTimer();
   typeWriter("Tomatempo", "title", 120);
 
